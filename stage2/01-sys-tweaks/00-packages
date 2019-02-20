@@ -2,10 +2,6 @@ ssh less fbset sudo psmisc strace ed ncdu crda
 console-setup keyboard-configuration debconf-utils parted unzip
 build-essential manpages-dev python bash-completion gdb pkg-config
 python-rpi.gpio v4l-utils
-<<<<<<< HEAD
-=======
-avahi-daemon
->>>>>>> upstream/master
 lua5.1
 luajit
 hardlink ca-certificates curl
@@ -25,7 +21,3 @@ rsync
 htop
 man-db
 policykit-1
-<<<<<<< HEAD
-=======
-ssh-import-id
->>>>>>> upstream/master
