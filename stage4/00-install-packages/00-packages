@@ -1,11 +1,15 @@
 java-common oracle-java8-jdk
+<<<<<<< HEAD
 libreoffice-sdbc-hsqldb
 sonic-pi
+=======
+>>>>>>> upstream/master
 python idle python3-pygame python-pygame python-tk
 python3 idle3 python3-tk
 python3-pgzero
 python-serial python3-serial
 python-picamera python3-picamera
+<<<<<<< HEAD
 debian-reference-en dillo x2x
 raspberrypi-net-mods raspberrypi-ui-mods
 smartsim
@@ -16,6 +20,15 @@ minecraft-pi python-minecraftpi
 alacarte rc-gui sense-hat
 tree
 scratch nuscratch
+=======
+debian-reference-en dillo
+raspberrypi-net-mods raspberrypi-ui-mods
+python-pip python3-pip
+python3-numpy
+pypy
+alacarte rc-gui sense-hat
+tree
+>>>>>>> upstream/master
 libgl1-mesa-dri libgles1-mesa libgles2-mesa xcompmgr
 geany
 piclone
@@ -25,6 +38,7 @@ python-twython python3-twython
 python-smbus python3-smbus
 python-flask python3-flask
 python-picraft python3-picraft
+<<<<<<< HEAD
 python-sense-emu python3-sense-emu sense-emu-tools python-sense-emu-doc
 pprompt
 scratch2
@@ -32,3 +46,10 @@ python3-thonny
 piwiz
 rp-prefapps
 libav-tools
+=======
+pprompt
+piwiz
+rp-prefapps
+libav-tools
+vlc
+>>>>>>> upstream/master

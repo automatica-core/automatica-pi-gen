@@ -1,13 +1,23 @@
 #!/bin/bash -e
 
+<<<<<<< HEAD
 IMG_FILE="${STAGE_WORK_DIR}/${IMG_DATE}-${IMG_NAME}${IMG_SUFFIX}.img"
+=======
+IMG_FILE="${STAGE_WORK_DIR}/${IMG_FILENAME}${IMG_SUFFIX}.img"
+>>>>>>> upstream/master
 NOOBS_DIR="${STAGE_WORK_DIR}/${IMG_DATE}-${IMG_NAME}${IMG_SUFFIX}"
 unmount_image "${IMG_FILE}"
 
 mkdir -p "${STAGE_WORK_DIR}"
+<<<<<<< HEAD
 cp "${WORK_DIR}/export-image/${IMG_DATE}-${IMG_NAME}${IMG_SUFFIX}.img" "${STAGE_WORK_DIR}/"
 
 rm -rf "${STAGE_WORK_DIR}/${IMG_DATE}-${IMG_NAME}${IMG_SUFFIX}"
+=======
+cp "${WORK_DIR}/export-image/${IMG_FILENAME}${IMG_SUFFIX}.img" "${STAGE_WORK_DIR}/"
+
+rm -rf "${NOOBS_DIR}"
+>>>>>>> upstream/master
 
 PARTED_OUT=$(parted -s "${IMG_FILE}" unit b print)
 BOOT_OFFSET=$(echo "$PARTED_OUT" | grep -e '^ 1'| xargs echo -n \

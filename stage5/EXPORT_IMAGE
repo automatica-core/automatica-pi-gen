@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 IMG_SUFFIX=""
+=======
+IMG_SUFFIX="-full"
+>>>>>>> upstream/master
 if [ "${USE_QEMU}" = "1" ]; then
 	export IMG_SUFFIX="${IMG_SUFFIX}-qemu"
 fi

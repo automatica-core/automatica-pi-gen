@@ -1,6 +1,10 @@
 quilt
 parted
+<<<<<<< HEAD
 realpath
+=======
+realpath:coreutils
+>>>>>>> upstream/master
 qemu-arm-static:qemu-user-static
 debootstrap
 zerofree
@@ -15,3 +19,7 @@ curl
 xxd
 file
 git
+<<<<<<< HEAD
+=======
+lsmod:kmod
+>>>>>>> upstream/master
