@@ -3,19 +3,19 @@
 
 rm -f "${ROOTFS_DIR}/etc/nginx/sites-enabled/default"
 
-install -v -m 644 files/service-automatica-config "${ROOTFS_DIR}/lib/systemd/system/automatica.service"
+install -v -m 644 files/service-supervisor-config "${ROOTFS_DIR}/lib/systemd/system/supervisor.service"
 install -v -m 644 files/service-mariadb-config "${ROOTFS_DIR}/lib/systemd/system/mariadb.service"
-dos2unix ${ROOTFS_DIR}/lib/systemd/system/automatica.service
+dos2unix ${ROOTFS_DIR}/lib/systemd/system/supervisor.service
 dos2unix ${ROOTFS_DIR}/lib/systemd/system/mariadb.service
 
 # install -v -m 644 files/10-usb.rules "${ROOTFS_DIR}/etc/udev/rules.d/10-usb.rules"
 
 pwd=$(pwd)
 cd ${ROOTFS_DIR}/etc/systemd/system/
-rm -f automatica.core.service
+rm -f supervisor.service
 rm -f ${ROOTFS_DIR}/etc/systemd/system/multi-user.target.wants/docker.service
 rm -f ${ROOTFS_DIR}/etc/systemd/system/multi-user.target.wants/mariadb.service
-rm -f ${ROOTFS_DIR}/etc/systemd/system/multi-user.target.wants/automatica.service
+rm -f ${ROOTFS_DIR}/etc/systemd/system/multi-user.target.wants/supervisor.service
 
 cd $pwd
 
@@ -27,26 +27,22 @@ cd "${ROOTFS_DIR}/etc/nginx/sites-enabled"
 ln -s "../sites-available/automatica-app" .
 cd $pwd
 
-# rm -rf ${ROOTFS_DIR}/opt/automatica
-# cp -avr files/automatica ${ROOTFS_DIR}/opt/automatica
-# cp -avr files/automatica.boot ${ROOTFS_DIR}/opt/automatica.boot
 
-# chmod 755 ${ROOTFS_DIR}/opt/automatica/Automatica.Core
-# chmod 755 ${ROOTFS_DIR}/opt/automatica/Automatica.Core.Watchdog
-# chmod 755 ${ROOTFS_DIR}/opt/automatica.boot/Automatica.Core.Bootloader
+install -v -d"${ROOTFS_DIR}/var/lib/automatica"
+install -v -d"${ROOTFS_DIR}/var/log/automatica"
 
-# install -v -m 644 files/database/automatica.core.init.db ${ROOTFS_DIR}/opt/automatica/automatica.core.init.db
+install -v -d"${ROOTFS_DIR}/var/lib/slave"
+install -v -d"${ROOTFS_DIR}/var/log/slave"
 
-# install -v -m 644 files/libnserial.so.1.1		"${ROOTFS_DIR}/usr/local/lib/libnserial.so.1.1"
+install -v -d"${ROOTFS_DIR}/var/lib/supervisor"
+install -v -d"${ROOTFS_DIR}/var/log/supervisor"
 
+if [ -z "$INSTALL_SLAVE" ]
+then
+    echo "installing master system config"
+    install -v -m 644 files/supervisor-master.config "${ROOTFS_DIR}/var/lib/supervisor/appsettings.json"
+else
+    echo "installing slave system config"
+    install -v -m 644 files/supervisor-slave.config "${ROOTFS_DIR}/var/lib/supervisor/appsettings.json"
+fi
 
-# echo copy libnsererial
-# pwd=$(pwd)
-# cd ${ROOTFS_DIR}/usr/local/lib
-
-# rm -f libnserial.so.1
-# rm -f libnserial.so
-# ln -s libnserial.so.1.1 libnserial.so.1 2>/dev/null
-# ln -s libnserial.so.1.1 libnserial.so 2>/dev/null
-
-# cd $pwd
