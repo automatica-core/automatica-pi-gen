@@ -1,17 +1,9 @@
-ldconfig -v
-
-cat /proc/cpuinfo
-
-DOCKER_RET=$(docker -v)
-
-if [ $DOCKER_RET -ne 0 ]; then
-    curl -sSL https://get.docker.com | sh
-    systemctl enable docker
-fi
-echo "starting docker..."
-dockerd &
+#!/bin/bash
+ldconfig
 
 usermod -aG docker automatica
-docker pull automaticacore/automatica-supervisor:develop-latest
 
-docker run --restart unless-stopped -v /var/run/docker.sock:/var/run/docker.sock automaticacore/automatica-supervisor:develop-latest
+
+ln -s /lib/systemd/system/docker.service /etc/systemd/system/multi-user.target.wants/docker.service
+ln -s /lib/systemd/system/mariadb.service /etc/systemd/system/multi-user.target.wants/mariadb.service
+ln -s /lib/systemd/system/automatica.service /etc/systemd/system/multi-user.target.wants/automatica.service

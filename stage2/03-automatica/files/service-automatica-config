@@ -1,14 +1,15 @@
 [Unit]
-Description=Automatica Core Server
+Description=Automatica.Supervisor
+After=mariadb.service
+Requires=mariadb.service
 
 [Service]
-WorkingDirectory=/opt/automatica
-ExecStart=/opt/automatica.boot/Automatica.Core.Bootloader
+TimeoutStartSec=0
 Restart=always
-RestartSec=10
-SyslogIdentifier=automatica.core
-User=automatica
-Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
+ExecStartPre=-/usr/bin/docker stop %n
+ExecStartPre=-/usr/bin/docker rm %n
+ExecStartPre=/usr/bin/docker pull automaticacore/automatica.supervisor:latest-develop
+ExecStart=/usr/bin/docker run --rm --name %n -v /var/run/docker.sock:/var/run/docker.sock automaticacore/automatica.supervisor:latest-develop
 
 [Install]
 WantedBy=multi-user.target

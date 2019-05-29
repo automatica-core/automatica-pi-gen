@@ -1,0 +1,15 @@
+[Unit]
+Description=MariaDB
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+ExecStartPre=-/usr/bin/docker stop %n
+ExecStartPre=-/usr/bin/docker rm %n
+ExecStartPre=/usr/bin/docker pull yobasystems/alpine-mariadb:armhf
+ExecStart=/usr/bin/docker run --rm --name %n -p 3306:3306 -v /var/lib/mysql:/var/lib/mysql -e MYSQL_USER=root -e MYSQL_PASSWORD=hguyFt6S95dgfR4ryb -e MYSQL_ROOT_PASSWORD=hguyFtgfR4r9R4r76 yobasystems/alpine-mariadb:armhf
+
+[Install]
+WantedBy=multi-user.target

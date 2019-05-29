@@ -1,32 +1,31 @@
 #!/bin/bash -e
 
 
+rm -f "${ROOTFS_DIR}/etc/nginx/sites-enabled/default"
 
-
-# rm -f "${ROOTFS_DIR}/etc/nginx/sites-enabled/default"
-
-# install -v -d	"${ROOTFS_DIR}/etc/systemd/system/automatica.core.service.d"
-# install -v -m 644 files/service-automatica-config "${ROOTFS_DIR}/etc/systemd/system/automatica.core.service.d/automatica.core.service"
-# dos2unix ${ROOTFS_DIR}/etc/systemd/system/automatica.core.service.d/automatica.core.service
+install -v -m 644 files/service-automatica-config "${ROOTFS_DIR}/lib/systemd/system/automatica.service"
+install -v -m 644 files/service-mariadb-config "${ROOTFS_DIR}/lib/systemd/system/mariadb.service"
+dos2unix ${ROOTFS_DIR}/lib/systemd/system/automatica.service
+dos2unix ${ROOTFS_DIR}/lib/systemd/system/mariadb.service
 
 # install -v -m 644 files/10-usb.rules "${ROOTFS_DIR}/etc/udev/rules.d/10-usb.rules"
 
-# pwd=$(pwd)
-# cd ${ROOTFS_DIR}/etc/systemd/system/
-# rm -f automatica.core.service
-# rm -f ${ROOTFS_DIR}/etc/systemd/system/multi-user.target.wants/automatica.core.service
-# ln -s automatica.core.service.d/automatica.core.service automatica.core.service
-# ln -s automatica.core.service.d/automatica.core.service ${ROOTFS_DIR}/etc/systemd/system/multi-user.target.wants/automatica.core.service
+pwd=$(pwd)
+cd ${ROOTFS_DIR}/etc/systemd/system/
+rm -f automatica.core.service
+rm -f ${ROOTFS_DIR}/etc/systemd/system/multi-user.target.wants/docker.service
+rm -f ${ROOTFS_DIR}/etc/systemd/system/multi-user.target.wants/mariadb.service
+rm -f ${ROOTFS_DIR}/etc/systemd/system/multi-user.target.wants/automatica.service
 
-# cd $pwd
+cd $pwd
 
-# install -v -m 644 files/nginx-automatica-config		"${ROOTFS_DIR}/etc/nginx/sites-available/automatica-app"
-# rm -f "${ROOTFS_DIR}/etc/nginx/sites-enabled/automatica-app"
+install -v -m 644 files/nginx-automatica-config		"${ROOTFS_DIR}/etc/nginx/sites-available/automatica-app"
+rm -f "${ROOTFS_DIR}/etc/nginx/sites-enabled/automatica-app"
 
-# pwd=$(pwd)
-# cd "${ROOTFS_DIR}/etc/nginx/sites-enabled"
-# ln -s "../sites-available/automatica-app" .
-# cd $pwd
+pwd=$(pwd)
+cd "${ROOTFS_DIR}/etc/nginx/sites-enabled"
+ln -s "../sites-available/automatica-app" .
+cd $pwd
 
 # rm -rf ${ROOTFS_DIR}/opt/automatica
 # cp -avr files/automatica ${ROOTFS_DIR}/opt/automatica
