@@ -28,14 +28,14 @@ ln -s "../sites-available/automatica-app" .
 cd $pwd
 
 
-install -v -d"${ROOTFS_DIR}/var/lib/automatica"
-install -v -d"${ROOTFS_DIR}/var/log/automatica"
+install -v -d "${ROOTFS_DIR}/var/lib/automatica"
+install -v -d "${ROOTFS_DIR}/var/log/automatica"
 
-install -v -d"${ROOTFS_DIR}/var/lib/slave"
-install -v -d"${ROOTFS_DIR}/var/log/slave"
+install -v -d "${ROOTFS_DIR}/var/lib/slave"
+install -v -d "${ROOTFS_DIR}/var/log/slave"
 
-install -v -d"${ROOTFS_DIR}/var/lib/supervisor"
-install -v -d"${ROOTFS_DIR}/var/log/supervisor"
+install -v -d "${ROOTFS_DIR}/var/lib/supervisor"
+install -v -d "${ROOTFS_DIR}/var/log/supervisor"
 
 if [ -z "$INSTALL_SLAVE" ]
 then
