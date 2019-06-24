@@ -41,15 +41,17 @@ then
     install -v -d "${ROOTFS_DIR}/var/lib/automatica/plugins/drivers"
     install -v -d "${ROOTFS_DIR}/var/lib/automatica/plugins/plugins"
 
-    install -v -m 644 files/supervisor-master.config "${ROOTFS_DIR}/var/lib/automatica/config/appsettings.json"
+    install -v -m 644 files/supervisor-master.config "${ROOTFS_DIR}/var/lib/supervisor/appsettings.json"
+    install -v -m 644 files/automatica.config "${ROOTFS_DIR}/var/lib/automatica/config/appsettings.json"
 
 else
     echo "installing slave system config"
+    install -v -d "${ROOTFS_DIR}/var/log/slave"
 
     install -v -d "${ROOTFS_DIR}/var/lib/slave"
     install -v -d "${ROOTFS_DIR}/var/lib/slave/config"
-    install -v -d "${ROOTFS_DIR}/var/log/slave"
 
-    install -v -m 644 files/supervisor-slave.config "${ROOTFS_DIR}/var/lib/supervisor/config/appsettings.json"
+    install -v -m 644 files/supervisor-slave.config "${ROOTFS_DIR}/var/lib/supervisor/appsettings.json"
+    install -v -m 644 files/automatica-slave.config "${ROOTFS_DIR}/var/lib/slave/appsettings.json"
 fi
 
