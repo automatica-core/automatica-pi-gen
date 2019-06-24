@@ -27,22 +27,29 @@ cd "${ROOTFS_DIR}/etc/nginx/sites-enabled"
 ln -s "../sites-available/automatica-app" .
 cd $pwd
 
-
-install -v -d "${ROOTFS_DIR}/var/lib/automatica"
-install -v -d "${ROOTFS_DIR}/var/log/automatica"
-
-install -v -d "${ROOTFS_DIR}/var/lib/slave"
-install -v -d "${ROOTFS_DIR}/var/log/slave"
-
 install -v -d "${ROOTFS_DIR}/var/lib/supervisor"
 install -v -d "${ROOTFS_DIR}/var/log/supervisor"
 
 if [ -z "$INSTALL_SLAVE" ]
 then
     echo "installing master system config"
-    install -v -m 644 files/supervisor-master.config "${ROOTFS_DIR}/var/lib/supervisor/appsettings.json"
+    install -v -d "${ROOTFS_DIR}/var/log/automatica"
+    
+    install -v -d "${ROOTFS_DIR}/var/lib/automatica"
+    install -v -d "${ROOTFS_DIR}/var/lib/automatica/config"
+    install -v -d "${ROOTFS_DIR}/var/lib/automatica/plugins"
+    install -v -d "${ROOTFS_DIR}/var/lib/automatica/plugins/drivers"
+    install -v -d "${ROOTFS_DIR}/var/lib/automatica/plugins/plugins"
+
+    install -v -m 644 files/supervisor-master.config "${ROOTFS_DIR}/var/lib/automatica/config/appsettings.json"
+
 else
     echo "installing slave system config"
-    install -v -m 644 files/supervisor-slave.config "${ROOTFS_DIR}/var/lib/supervisor/appsettings.json"
+
+    install -v -d "${ROOTFS_DIR}/var/lib/slave"
+    install -v -d "${ROOTFS_DIR}/var/lib/slave/config"
+    install -v -d "${ROOTFS_DIR}/var/log/slave"
+
+    install -v -m 644 files/supervisor-slave.config "${ROOTFS_DIR}/var/lib/supervisor/config/appsettings.json"
 fi
 
