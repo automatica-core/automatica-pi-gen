@@ -39,7 +39,7 @@ then
     install -v -d "${ROOTFS_DIR}/var/lib/automatica/config"
     install -v -d "${ROOTFS_DIR}/var/lib/automatica/plugins"
     install -v -d "${ROOTFS_DIR}/var/lib/automatica/plugins/drivers"
-    install -v -d "${ROOTFS_DIR}/var/lib/automatica/plugins/plugins"
+    install -v -d "${ROOTFS_DIR}/var/lib/automatica/plugins/logics"
 
     install -v -m 644 files/supervisor-master.config "${ROOTFS_DIR}/var/lib/supervisor/appsettings.json"
     install -v -m 644 files/automatica.config "${ROOTFS_DIR}/var/lib/automatica/config/appsettings.json"
