@@ -20,9 +20,6 @@ rsync
 htop
 man-db
 policykit-1
-<<<<<<< HEAD
-=======
 ssh-import-id
 rng-tools
 ethtool
->>>>>>> upstream/master
