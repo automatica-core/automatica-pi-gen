@@ -9,3 +9,5 @@ echo "deb [arch=armhf] https://download.docker.com/linux/$(. /etc/os-release; ec
     tee /etc/apt/sources.list.d/docker.list
 
 apt-get update
+
+apt-get -y install docker-ce --no-install-recommends
