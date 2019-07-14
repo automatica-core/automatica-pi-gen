@@ -1,0 +1,1 @@
+curl lsb-release apt-transport-https ca-certificates gnupg2 software-properties-common

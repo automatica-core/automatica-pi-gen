@@ -1,0 +1,15 @@
+[Unit]
+Description=Automatica.Supervisor
+After=mariadb.service
+Requires=mariadb.service
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+ExecStartPre=-/usr/bin/docker stop supervisor
+ExecStartPre=-/usr/bin/docker rm supervisor
+ExecStartPre=/usr/bin/docker pull automaticacore/automatica.supervisor:latest-develop
+ExecStart=/usr/bin/docker run --rm --name supervisor -v /var/lib/supervisor:/app/supervisor/config -v /var/log/supervisor:/app/supervisor/logs -e NETWORK_MODE=automatica -e DATABASE_TYPE=mariadb -e MARIADB_HOST=mariadb -e MARIADB_USER=root -e MARIADB_PASSWORD=hguyFtgfR4r9R4r76 -v /var/run/docker.sock:/var/run/docker.sock automaticacore/automatica.supervisor:latest-develop
+
+[Install]
+WantedBy=multi-user.target
