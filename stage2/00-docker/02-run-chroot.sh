@@ -1,6 +1,5 @@
 #!/bin/bash
 
-printenv
 INSTALL_DOCKER=${INSTALL_DOCKER:-0}
 
 echo "Install as docker app = $INSTALL_DOCKER"
@@ -11,7 +10,6 @@ then
     exit 0
 fi
 
-on_chroot << EOF
 # Get the Docker signing key for packages
 echo "installing docker deb key"
 curl --insecure https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg | apt-key add -
@@ -27,4 +25,3 @@ apt-get update
 apt-get -y install docker-ce --no-install-recommends
 
 usermod -aG docker automatica
-EOF
