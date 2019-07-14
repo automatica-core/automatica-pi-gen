@@ -23,14 +23,6 @@ rm -f ${ROOTFS_DIR}/etc/systemd/system/multi-user.target.wants/supervisor.servic
 
 cd $pwd
 
-install -v -m 644 files/nginx-automatica-config		"${ROOTFS_DIR}/etc/nginx/sites-available/automatica-app"
-rm -f "${ROOTFS_DIR}/etc/nginx/sites-enabled/automatica-app"
-
-pwd=$(pwd)
-cd "${ROOTFS_DIR}/etc/nginx/sites-enabled"
-ln -s "../sites-available/automatica-app" .
-cd $pwd
-
 install -v -d "${ROOTFS_DIR}/var/lib/supervisor"
 install -v -d "${ROOTFS_DIR}/var/log/supervisor"
 
