@@ -1,3 +1,11 @@
+#!/bin/bash
+
+if [ -z "$INSTALL_NATIVE" ]
+then
+    exit 0
+fi
+
+
 # Get the Docker signing key for packages
 echo "installing docker deb key"
 curl --insecure https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg | apt-key add -
@@ -11,3 +19,5 @@ echo "deb [arch=armhf] https://download.docker.com/linux/$(. /etc/os-release; ec
 apt-get update
 
 apt-get -y install docker-ce --no-install-recommends
+
+usermod -aG docker automatica

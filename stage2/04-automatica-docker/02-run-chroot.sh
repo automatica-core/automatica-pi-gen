@@ -1,7 +1,9 @@
 #!/bin/bash
-ldconfig
 
-usermod -aG docker automatica
+if [ -z "$INSTALL_NATIVE" ]
+then
+    exit 0
+fi
 
 
 ln -s /lib/systemd/system/docker.service /etc/systemd/system/multi-user.target.wants/docker.service

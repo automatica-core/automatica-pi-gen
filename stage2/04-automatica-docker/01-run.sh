@@ -1,5 +1,9 @@
 #!/bin/bash -e
 
+if [ -z "$INSTALL_NATIVE" ]
+then
+    exit 0
+fi
 
 rm -f "${ROOTFS_DIR}/etc/nginx/sites-enabled/default"
 
