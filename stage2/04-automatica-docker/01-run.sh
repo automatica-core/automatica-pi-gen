@@ -54,3 +54,11 @@ else
     install -v -m 644 files/automatica-slave.config "${ROOTFS_DIR}/var/lib/slave/appsettings.json"
 fi
 
+
+
+
+on_chroot << EOF
+ln -s /lib/systemd/system/docker.service /etc/systemd/system/multi-user.target.wants/docker.service
+ln -s /lib/systemd/system/mariadb.service /etc/systemd/system/multi-user.target.wants/mariadb.service
+ln -s /lib/systemd/system/supervisor.service /etc/systemd/system/multi-user.target.wants/supervisor.service
+EOF
