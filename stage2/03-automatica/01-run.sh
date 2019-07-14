@@ -1,7 +1,10 @@
 #!/bin/bash -e
 
-if [ -z "$INSTALL_DOCKER" ]
+INSTALL_NATIVE=${INSTALL_NATIVE:-0}
+
+if [ "${INSTALL_NATIVE}" != "1" ]; then
 then
+    echo "ignore installing automatica native"
     exit 0
 fi
 

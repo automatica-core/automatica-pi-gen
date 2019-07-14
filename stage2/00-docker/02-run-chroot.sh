@@ -1,7 +1,10 @@
 #!/bin/bash
 
-if [ -z "$INSTALL_NATIVE" ]
+INSTALL_DOCKER=${INSTALL_DOCKER:-0}
+
+if [ "${INSTALL_DOCKER}" != "1" ]; then
 then
+    echo "ignore install docker..."
     exit 0
 fi
 
