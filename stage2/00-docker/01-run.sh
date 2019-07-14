@@ -1,5 +1,6 @@
 #!/bin/bash
 
+printenv
 INSTALL_DOCKER=${INSTALL_DOCKER:-0}
 
 echo "Install as docker app = $INSTALL_DOCKER"
