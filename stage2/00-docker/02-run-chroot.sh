@@ -2,7 +2,9 @@
 
 INSTALL_DOCKER=${INSTALL_DOCKER:-0}
 
-if [ "${INSTALL_DOCKER}" != "1" ]; 
+echo "Install as docker app = $INSTALL_DOCKER"
+
+if [ "$INSTALL_DOCKER" != "1" ]; 
 then
     echo "ignore install docker..."
     exit 0
