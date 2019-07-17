@@ -29,7 +29,9 @@ cd $pwd
 install -v -d "${ROOTFS_DIR}/var/lib/supervisor"
 install -v -d "${ROOTFS_DIR}/var/log/supervisor"
 
-if [ -z "$INSTALL_SLAVE" ]
+INSTALL_DOCKER_SLAVE=${INSTALL_DOCKER_SLAVE:-0}
+
+if [ "$INSTALL_DOCKER_SLAVE" == "0" ]
 then
     echo "installing master system config"
     install -v -d "${ROOTFS_DIR}/var/log/automatica"
