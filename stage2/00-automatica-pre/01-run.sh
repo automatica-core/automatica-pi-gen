@@ -4,7 +4,7 @@
 INSTALL_NATIVE=${INSTALL_NATIVE:-0}
 INSTALL_DOCKER=${INSTALL_DOCKER:-0}
 
-if [ "$INSTALL_NATIVE" != "1" && "$INSTALL_DOCKER" != "1" ];
+if [ "$INSTALL_NATIVE" != "1" ] && [ "$INSTALL_DOCKER" != "1" ];
 then
     echo "no built type set"
     exit -1
