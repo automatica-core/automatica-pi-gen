@@ -6,12 +6,10 @@ Requires=docker.service
 [Service]
 TimeoutStartSec=0
 Restart=always
-ExecStartPre=-/usr/bin/docker network rm automatica
-ExecStartPre=-/usr/bin/docker network create automatica
 ExecStartPre=-/usr/bin/docker stop mariadb
 ExecStartPre=-/usr/bin/docker rm mariadb
 ExecStartPre=/usr/bin/docker pull yobasystems/alpine-mariadb:armhf
-ExecStart=/usr/bin/docker run --network automatica --rm --name mariadb -p 3306:3306 -v /var/lib/mysql:/var/lib/mysql -e MYSQL_USER=automatica -e MYSQL_PASSWORD=automatica -e MYSQL_ROOT_PASSWORD=hguyFtgfR4r9R4r76 yobasystems/alpine-mariadb:armhf
+ExecStart=/usr/bin/docker run --network host --rm --name mariadb -p 3306:3306 -v /var/lib/mysql:/var/lib/mysql -e MYSQL_USER=automatica -e MYSQL_PASSWORD=automatica -e MYSQL_ROOT_PASSWORD=hguyFtgfR4r9R4r76 yobasystems/alpine-mariadb:armhf
 
 [Install]
 WantedBy=multi-user.target
