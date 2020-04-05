@@ -7,6 +7,7 @@ echo "Install native = $INSTALL_NATIVE"
 if [ "$INSTALL_NATIVE" != "1" ];
 then
     echo "ignore installing automatica native"
+    rm -f	"${ROOTFS_DIR}/etc/systemd/system/automatica.core.service.d"
     exit 0
 fi
 

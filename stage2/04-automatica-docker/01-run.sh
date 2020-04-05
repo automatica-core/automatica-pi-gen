@@ -7,6 +7,9 @@ echo "Install docker = $INSTALL_DOCKER"
 if [ "$INSTALL_DOCKER" != "1" ]; 
 then
     echo "ignore installing automatica docker"
+    
+    rm -f "${ROOTFS_DIR}/lib/systemd/system/supervisor.service"
+    rm -f "${ROOTFS_DIR}/lib/systemd/system/mariadb.service"
     exit 0
 fi
 
