@@ -2,6 +2,8 @@
 
 INSTALL_DOCKER=${INSTALL_DOCKER:-0}
 
+echo "Install docker = $INSTALL_DOCKER"
+
 if [ "$INSTALL_DOCKER" != "1" ]; 
 then
     echo "ignore installing automatica docker"

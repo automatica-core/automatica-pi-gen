@@ -2,6 +2,8 @@
 
 INSTALL_NATIVE=${INSTALL_NATIVE:-0}
 
+echo "Install native = $INSTALL_NATIVE"
+
 if [ "$INSTALL_NATIVE" != "1" ];
 then
     echo "ignore installing automatica native"
