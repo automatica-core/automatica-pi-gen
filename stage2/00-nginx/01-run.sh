@@ -14,7 +14,11 @@ cd $pwd
 
 
 echo create certificate
-
-openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout files/automatica.key -out files/automatica.crt -config files/localhost.conf
+openssl req -new -newkey rsa:4096 -days 36500 -nodes -x509 \
+    -subj "/C=AT/ST=Upper Austria/L=Wels/O=p3-software/CN=automatica.core" \
+    -keyout files/automatica.key  -out files/automatica.crt
+    
 install -v -m 644 files/automatica.crt "${ROOTFS_DIR}/etc/ssl/certs/automatica.crt"
 install -v -m 644 files/automatica.key "${ROOTFS_DIR}/etc/ssl/certs/automatica.key"
+
+
