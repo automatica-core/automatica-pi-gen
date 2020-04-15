@@ -2,16 +2,8 @@
 
 rm -f "${ROOTFS_DIR}/etc/nginx/sites-enabled/default"
 
-install -v -m 644 files/nginx-automatica-config		"${ROOTFS_DIR}/etc/nginx/sites-available/automatica-app"
+install -v -m 644 files/nginx-automatica-config		"${ROOTFS_DIR}/etc/nginx/nginx.conf"
 install -v -m 644 files/proxy.conf		"${ROOTFS_DIR}/etc/nginx/proxy.conf"
-
-rm -f "${ROOTFS_DIR}/etc/nginx/sites-enabled/automatica-app"
-
-pwd=$(pwd)
-cd "${ROOTFS_DIR}/etc/nginx/sites-enabled"
-ln -s "../sites-available/automatica-app" .
-cd $pwd
-
 
 echo create certificate
 openssl req -new -newkey rsa:4096 -days 36500 -nodes -x509 \

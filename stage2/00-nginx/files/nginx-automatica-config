@@ -1,3 +1,5 @@
+events {}
+
 http {
     include        /etc/nginx/proxy.conf;
     limit_req_zone $binary_remote_addr zone=one:10m rate=5r/s;
