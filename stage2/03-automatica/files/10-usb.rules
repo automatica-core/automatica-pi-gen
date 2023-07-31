@@ -1,0 +1,1 @@
+SUBSYSTEM=="usb-serial", ACTION=="add", CHMOD="0666"

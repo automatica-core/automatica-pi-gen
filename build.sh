@@ -192,6 +192,12 @@ export QUILT_NO_DIFF_INDEX=1
 export QUILT_NO_DIFF_TIMESTAMPS=1
 export QUILT_REFRESH_ARGS="-p ab"
 
+
+export INSTALL_NATIVE=${INSTALL_NATIVE:-0}
+export INSTALL_NATIVE_SLAVE=${INSTALL_NATIVE_SLAVE:-0}
+export INSTALL_DOCKER=${INSTALL_DOCKER:-0}
+export INSTALL_DOCKER_SLAVE=${INSTALL_DOCKER_SLAVE:-0}
+
 # shellcheck source=scripts/common
 source "${SCRIPT_DIR}/common"
 # shellcheck source=scripts/dependencies_check

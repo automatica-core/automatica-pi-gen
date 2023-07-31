@@ -1,10 +1,14 @@
 #!/bin/bash
 
-if [ -z "$INSTALL_NATIVE" ]
+INSTALL_DOCKER=${INSTALL_DOCKER:-0}
+
+echo "Install as docker app = $INSTALL_DOCKER"
+
+if [ "$INSTALL_DOCKER" != "1" ]; 
 then
+    echo "ignore install docker..."
     exit 0
 fi
-
 
 # Get the Docker signing key for packages
 echo "installing docker deb key"

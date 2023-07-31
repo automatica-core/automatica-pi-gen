@@ -1,0 +1,14 @@
+[Unit]
+Description=Automatica Core Server
+
+[Service]
+WorkingDirectory=/opt/automatica
+ExecStart=/opt/automatica.boot/Automatica.Core.Bootloader
+Restart=always
+RestartSec=10
+SyslogIdentifier=automatica.core
+User=automatica
+Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
+
+[Install]
+WantedBy=multi-user.target
