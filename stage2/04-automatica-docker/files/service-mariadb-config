@@ -2,9 +2,11 @@
 Description=MariaDB
 After=docker.service
 Requires=docker.service
+StartLimitInterval=200
+StartLimitBurst=5
 
 [Service]
-TimeoutStartSec=0
+TimeoutStartSec=300
 Restart=always
 ExecStartPre=-/usr/bin/docker stop mariadb
 ExecStartPre=-/usr/bin/docker rm mariadb

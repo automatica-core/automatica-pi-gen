@@ -2,9 +2,11 @@
 Description=Automatica.Supervisor
 After=mariadb.service
 Requires=mariadb.service
+StartLimitInterval=200
+StartLimitBurst=5
 
 [Service]
-TimeoutStartSec=0
+TimeoutStartSec=300
 Restart=always
 ExecStartPre=-/usr/bin/docker stop supervisor
 ExecStartPre=-/usr/bin/docker rm supervisor
