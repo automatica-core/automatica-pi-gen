@@ -19,9 +19,9 @@ curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /etc/
 chmod a+r /etc/apt/keyrings/docker.gpg
 
 echo \
-  deb [arch=armhf signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
-  bullseye stable | \
-  tee /etc/apt/sources.list.d/docker.list > /dev/null
+  "deb [arch=armhf signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+  bullseye stable" | \
+  tee /etc/apt/sources.list.d/docker.list > /dev/null"
 
 
 apt-get update
