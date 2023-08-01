@@ -22,7 +22,7 @@ chmod a+r /etc/apt/keyrings/docker.gpg
 echo \
   "deb [arch=armhf signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
   bullseye stable" | \
-  tee /etc/apt/sources.list.d/docker.list > /dev/null"
+  tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 
 apt-get update
