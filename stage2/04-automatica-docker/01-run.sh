@@ -41,12 +41,12 @@ install -v -d "${ROOTFS_DIR}/var/lib/supervisor"
 install -v -d "${ROOTFS_DIR}/var/log/supervisor"
 
 
-INSTALL_DOCKER_SLAVE=${INSTALL_DOCKER_SLAVE:-0}
+INSTALL_DOCKER_SATELLITE=${INSTALL_DOCKER_SATELLITE:-0}
 
 echo "Using env: ${env}"
 echo "Using IMAGE_TAG: ${IMAGE_TAG}"
 
-if [ "$INSTALL_DOCKER_SLAVE" == "0" ]
+if [ "$INSTALL_DOCKER_SATELLITE" == "0" ]
 then
     echo "installing master system config"
     install -v -d "${ROOTFS_DIR}/var/log/automatica"
