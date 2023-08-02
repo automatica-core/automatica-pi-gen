@@ -44,4 +44,6 @@ if [ "${USE_QCOW2}" = "1" ]; then
 	rm "$ROOTFS_DIR/etc/systemd/system/multi-user.target.wants/apply_noobs_os_config.service"
 fi
 
+rm -f "$$ROOTFS_DIR/etc/systemd/system/multi-user.target.wants/userconfig.service"
+
 unmount_image "${IMG_FILE}"
