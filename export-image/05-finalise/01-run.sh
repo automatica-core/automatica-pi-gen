@@ -36,6 +36,9 @@ rm -f "${ROOTFS_DIR}/etc/gshadow-"
 rm -f "${ROOTFS_DIR}/etc/subuid-"
 rm -f "${ROOTFS_DIR}/etc/subgid-"
 
+rm -f "$$ROOTFS_DIR/etc/systemd/system/multi-user.target.wants/userconfig.service"
+rm -f "$$ROOTFS_DIR/lib/systemd/system/userconfig.service"
+
 rm -f "${ROOTFS_DIR}"/var/cache/debconf/*-old
 rm -f "${ROOTFS_DIR}"/var/lib/dpkg/*-old
 

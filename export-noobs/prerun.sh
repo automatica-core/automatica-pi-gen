@@ -45,5 +45,6 @@ if [ "${USE_QCOW2}" = "1" ]; then
 fi
 
 rm -f "$$ROOTFS_DIR/etc/systemd/system/multi-user.target.wants/userconfig.service"
+rm -f "$$ROOTFS_DIR/lib/systemd/system/userconfig.service"
 
 unmount_image "${IMG_FILE}"
