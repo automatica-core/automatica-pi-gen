@@ -59,6 +59,8 @@ then
     install -v -m 644 files/supervisor-master-${env}.json "${ROOTFS_DIR}/var/lib/supervisor/appsettings.json"
     install -v -m 644 files/automatica-${env}.json "${ROOTFS_DIR}/var/lib/automatica/config/appsettings.json"
 
+    echo "ENVSUBST..."
+    IMAGE_TAG=$IMAGE_TAG envsubst < "${ROOTFS_DIR}/var/lib/supervisor/appsettings.json" 
     IMAGE_TAG=$IMAGE_TAG envsubst < "${ROOTFS_DIR}/var/lib/supervisor/appsettings.json" > "${ROOTFS_DIR}/var/lib/supervisor/appsettings.json"
     IMAGE_TAG=$IMAGE_TAG envsubst < "${ROOTFS_DIR}/var/lib/automatica/config/appsettings.json" > "${ROOTFS_DIR}/var/lib/automatica/config/appsettings.json"
 
