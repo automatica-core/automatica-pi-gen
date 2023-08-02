@@ -1,0 +1,12 @@
+{
+  "ConnectionStrings": {
+    "AutomaticaDatabaseMaria": "Server=localhost;User Id=root;Password=hguyFtgfR4r9R4r76;Database=automatica",
+    "AutomaticaDatabaseType": "mariadb"
+  },
+  "server": {
+    "port": 5001,
+    "cloudurl": "https://cloud.automaticacore.com",
+    "log_microsoft":  true,
+    "remote_connect_url": "cloud.automaticaremote.com"
+  }
+}

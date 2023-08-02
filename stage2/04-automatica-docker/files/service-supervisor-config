@@ -10,8 +10,8 @@ TimeoutStartSec=300
 Restart=always
 ExecStartPre=-/usr/bin/docker stop supervisor
 ExecStartPre=-/usr/bin/docker rm supervisor
-ExecStartPre=/usr/bin/docker pull automaticacore/automatica.supervisor:latest
-ExecStart=/usr/bin/docker run --rm --name supervisor -v /var/lib/supervisor:/app/supervisor/config -v /var/log/supervisor:/app/supervisor/logs -e NETWORK_MODE=automatica -e AUTOMATICA_CONFIG_FILE=appsettings.json -v /var/run/docker.sock:/var/run/docker.sock automaticacore/automatica.supervisor:latest-develop
+ExecStartPre=/usr/bin/docker pull automaticacore/automatica.supervisor:${IMAGE_TAG}
+ExecStart=/usr/bin/docker run --rm --name supervisor -v /var/lib/supervisor:/app/supervisor/config -v /var/log/supervisor:/app/supervisor/logs -e NETWORK_MODE=automatica -e AUTOMATICA_CONFIG_FILE=appsettings.json -v /var/run/docker.sock:/var/run/docker.sock automaticacore/automatica.supervisor:${IMAGE_TAG}
 
 [Install]
 WantedBy=multi-user.target

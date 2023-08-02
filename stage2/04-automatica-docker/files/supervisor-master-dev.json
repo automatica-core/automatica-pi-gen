@@ -7,7 +7,7 @@
   "AllowedHosts": "*",
 
   "image": "automaticacore/automatica",
-  "imageTag": "latest",
+  "imageTag": "${IMAGE_TAG}",
   "dockerRegistry": "https://registry.hub.docker.com",
   "pollIntervalMinutes": 5,
   "mounts": [
