@@ -17,10 +17,11 @@ fi
 
 rm -f "${ROOTFS_DIR}/etc/nginx/sites-enabled/default"
 
-install -v -m 644 files/service-supervisor-config "${ROOTFS_DIR}/lib/systemd/system/supervisor.service"
+rm -f files/service-supervisor-config-out
+IMAGE_TAG=$IMAGE_TAG envsubst < "files/service-supervisor-config" > "files/service-supervisor-config-out"
+    
+install -v -m 644 files/service-supervisor-config-out "${ROOTFS_DIR}/lib/systemd/system/supervisor.service"
 install -v -m 644 files/service-mariadb-config "${ROOTFS_DIR}/lib/systemd/system/mariadb.service"
-
-IMAGE_TAG=$IMAGE_TAG envsubst < "${ROOTFS_DIR}/lib/systemd/system/supervisor.service" > "${ROOTFS_DIR}/lib/systemd/system/supervisor.service"
 
 dos2unix ${ROOTFS_DIR}/lib/systemd/system/supervisor.service
 dos2unix ${ROOTFS_DIR}/lib/systemd/system/mariadb.service
@@ -56,13 +57,14 @@ then
     install -v -d "${ROOTFS_DIR}/var/lib/automatica/plugins/drivers"
     install -v -d "${ROOTFS_DIR}/var/lib/automatica/plugins/logics"
 
-    install -v -m 644 files/supervisor-master-${env}.json "${ROOTFS_DIR}/var/lib/supervisor/appsettings.json"
-    install -v -m 644 files/automatica-${env}.json "${ROOTFS_DIR}/var/lib/automatica/config/appsettings.json"
+    rm -f files/supervisor-master-out.json
+    rm -f files/automatica-out.json
+    IMAGE_TAG=$IMAGE_TAG envsubst < "files/supervisor-master-${env}.json" > "files/supervisor-master-out.json"
+    IMAGE_TAG=$IMAGE_TAG envsubst < "files/automatica-${env}.json" > "files/automatica-out.json"
 
-    echo "ENVSUBST..."
-    IMAGE_TAG=$IMAGE_TAG envsubst < "${ROOTFS_DIR}/var/lib/supervisor/appsettings.json" 
-    IMAGE_TAG=$IMAGE_TAG envsubst < "${ROOTFS_DIR}/var/lib/supervisor/appsettings.json" > "${ROOTFS_DIR}/var/lib/supervisor/appsettings.json"
-    IMAGE_TAG=$IMAGE_TAG envsubst < "${ROOTFS_DIR}/var/lib/automatica/config/appsettings.json" > "${ROOTFS_DIR}/var/lib/automatica/config/appsettings.json"
+    install -v -m 644 files/supervisor-master-out.json "${ROOTFS_DIR}/var/lib/supervisor/appsettings.json"
+    install -v -m 644 files/automatica-out.json "${ROOTFS_DIR}/var/lib/automatica/config/appsettings.json"
+
 
 else
     echo "installing slave system config"
@@ -71,9 +73,14 @@ else
     install -v -d "${ROOTFS_DIR}/var/lib/slave"
     install -v -d "${ROOTFS_DIR}/var/lib/slave/config"
 
-    install -v -m 644 files/supervisor-slave-${env}.json "${ROOTFS_DIR}/var/lib/supervisor/appsettings.json"
-    install -v -m 644 files/automatica-slave-${env}.json "${ROOTFS_DIR}/var/lib/slave/appsettings.json"
 
-    IMAGE_TAG=$IMAGE_TAG envsubst < "${ROOTFS_DIR}/var/lib/supervisor/appsettings.json" > "${ROOTFS_DIR}/var/lib/supervisor/appsettings.json"
-    IMAGE_TAG=$IMAGE_TAG envsubst < "${ROOTFS_DIR}/var/lib/slave/appsettings.json" > "${ROOTFS_DIR}/var/lib/slave/appsettings.json"
+    rm -f files/supervisor-slave-out.json
+    rm -f files/automatica-slave-out.json
+    IMAGE_TAG=$IMAGE_TAG envsubst < "files/supervisor-slave-${env}.json" > "files/supervisor-slave-out.json"
+    IMAGE_TAG=$IMAGE_TAG envsubst < "files/automatica-slave-${env}.json" > "files/automatica-slave-out.json"
+
+
+    install -v -m 644 files/supervisor-slave-out.json "${ROOTFS_DIR}/var/lib/supervisor/appsettings.json"
+    install -v -m 644 files/automatica-slave-out.json "${ROOTFS_DIR}/var/lib/slave/appsettings.json"
+
 fi
