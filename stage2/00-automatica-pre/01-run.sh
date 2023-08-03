@@ -21,4 +21,9 @@ rm -f libnserial.so
 ln -s libnserial.so.1.1 libnserial.so.1 2>/dev/null
 ln -s libnserial.so.1.1 libnserial.so 2>/dev/null
 
+echo install frpc
+curl -L -o frp.tgz https://github.com/fatedier/frp/releases/download/v0.51.2/frp_0.51.2_linux_arm.tar.gz
+tar xvzf frp.tgz
+install -v -m 755 frp_*/frpc "${ROOTFS_DIR}/usr/local/bin/frpc"
+
 cd $pwd
