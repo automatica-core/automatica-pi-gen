@@ -10,11 +10,12 @@ then
     exit -1
 fi
 
-install -v -m 644 files/libnserial.so.1.1		"${ROOTFS_DIR}/usr/local/lib/libnserial.so.1.1"
-
 echo copy libnsererial
 pwd=$(pwd)
 cd ${ROOTFS_DIR}/usr/local/lib
+
+
+install -v -m 644 files/libnserial.so.1.1		"${ROOTFS_DIR}/usr/local/lib/libnserial.so.1.1"
 
 rm -f libnserial.so.1
 rm -f libnserial.so
