@@ -10,7 +10,8 @@ then
     exit 0
 fi
 
-install -v -m 644 files/service-automatica-config "${ROOTFS_DIR}/lib/systemd/automatica/automatica.service"
+mkdir "${ROOTFS_DIR}/lib/systemd/automatica/"
+install -v -m 644 files/automatica.service "${ROOTFS_DIR}/lib/systemd/automatica/automatica.service"
 dos2unix "${ROOTFS_DIR}/lib/systemd/automatica/automatica.service"
 
 install -v -m 644 files/10-usb.rules "${ROOTFS_DIR}/etc/udev/rules.d/10-usb.rules"
