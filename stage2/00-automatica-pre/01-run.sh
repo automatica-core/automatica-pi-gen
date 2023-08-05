@@ -11,6 +11,7 @@ then
 fi
 
 echo copy libnsererial
+mkdir -p "${ROOTFS_DIR}/usr/local/lib/"
 install -v -m 644 files/libnserial.so.1.1 "${ROOTFS_DIR}/usr/local/lib/libnserial.so.1.1"
 
 pwd=$(pwd)
