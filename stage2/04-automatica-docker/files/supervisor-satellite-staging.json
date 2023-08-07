@@ -1,0 +1,17 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+
+  "image": "automaticacore/automatica.satellite",
+  "imageTag": "${IMAGE_TAG}",
+  "dockerRegistry": "https://registry.hub.docker.com",
+  "pollIntervalMinutes": 5,
+  "mounts": [
+    "/var/lib/satellite/:/app/satellite/config/",
+    "/var/log/satellite/:/app/satellite/logs/"
+  ]
+}
