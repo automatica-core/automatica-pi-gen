@@ -67,20 +67,25 @@ then
 
 
 else
-    echo "installing slave system config"
-    install -v -d "${ROOTFS_DIR}/var/log/slave"
+    echo "installing satellite system config"
+    install -v -d "${ROOTFS_DIR}/var/log/satellite"
 
-    install -v -d "${ROOTFS_DIR}/var/lib/slave"
-    install -v -d "${ROOTFS_DIR}/var/lib/slave/config"
-
-
-    rm -f files/supervisor-slave-out.json
-    rm -f files/automatica-slave-out.json
-    IMAGE_TAG=$IMAGE_TAG envsubst < "files/supervisor-slave-${env}.json" > "files/supervisor-slave-out.json"
-    IMAGE_TAG=$IMAGE_TAG envsubst < "files/automatica-slave-${env}.json" > "files/automatica-slave-out.json"
+    install -v -d "${ROOTFS_DIR}/var/lib/satellite"
+    install -v -d "${ROOTFS_DIR}/var/lib/satellite/config"
 
 
-    install -v -m 644 files/supervisor-slave-out.json "${ROOTFS_DIR}/var/lib/supervisor/appsettings.json"
-    install -v -m 644 files/automatica-slave-out.json "${ROOTFS_DIR}/var/lib/slave/appsettings.json"
+    rm -f files/supervisor-satellite-out.json
+    rm -f files/automatica-satellite-out.json
+
+    echo "config files...supervisor"
+    IMAGE_TAG=$IMAGE_TAG envsubst < "files/supervisor-satellite-${env}.json"
+    echo "config files...satellite"
+    IMAGE_TAG=$IMAGE_TAG envsubst < "files/automatica-satellite-${env}.json"
+
+    IMAGE_TAG=$IMAGE_TAG envsubst < "files/supervisor-satellite-${env}.json" > "files/supervisor-satellite-out.json"
+    IMAGE_TAG=$IMAGE_TAG envsubst < "files/automatica-satellite-${env}.json" > "files/automatica-satellite-out.json"
+
+    install -v -m 644 files/supervisor-satellite-out.json "${ROOTFS_DIR}/var/lib/supervisor/appsettings.json"
+    install -v -m 644 files/automatica-satellite-out.json "${ROOTFS_DIR}/var/lib/satellite/appsettings.json"
 
 fi
