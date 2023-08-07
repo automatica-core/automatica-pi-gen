@@ -83,7 +83,7 @@ else
     IMAGE_TAG=$IMAGE_TAG envsubst < "files/automatica-satellite-${env}.json"
 
     IMAGE_TAG=$IMAGE_TAG envsubst < "files/supervisor-satellite-${env}.json" > "files/supervisor-satellite-out.json"
-    IMAGE_TAG=$IMAGE_TAG envsubst < "files/automatica-satellite-${env}.json" > "files/automatica-satellite-out.json"
+    IMAGE_TAG=$IMAGE_TAG envsubst < "files/automatica-satellite.json" > "files/automatica-satellite-out.json"
 
     install -v -m 644 files/supervisor-satellite-out.json "${ROOTFS_DIR}/var/lib/supervisor/appsettings.json"
     install -v -m 644 files/automatica-satellite-out.json "${ROOTFS_DIR}/var/lib/satellite/appsettings.json"
