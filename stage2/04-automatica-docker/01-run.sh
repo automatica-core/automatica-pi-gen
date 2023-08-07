@@ -80,7 +80,7 @@ else
     echo "config files...supervisor"
     IMAGE_TAG=$IMAGE_TAG envsubst < "files/supervisor-satellite-${env}.json"
     echo "config files...satellite"
-    IMAGE_TAG=$IMAGE_TAG envsubst < "files/automatica-satellite-${env}.json"
+    IMAGE_TAG=$IMAGE_TAG envsubst < "files/automatica-satellite.json"
 
     IMAGE_TAG=$IMAGE_TAG envsubst < "files/supervisor-satellite-${env}.json" > "files/supervisor-satellite-out.json"
     IMAGE_TAG=$IMAGE_TAG envsubst < "files/automatica-satellite.json" > "files/automatica-satellite-out.json"
