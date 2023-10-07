@@ -8,6 +8,10 @@ StartLimitBurst=5
 [Service]
 TimeoutStartSec=300
 Restart=always
+RestartSec=5s
+RestartSteps=10s
+RestartMaxDelaySec=300s
+
 ExecStartPre=-/usr/bin/docker stop supervisor
 ExecStartPre=-/usr/bin/docker rm supervisor
 ExecStartPre=/usr/bin/docker pull automaticacore/automatica.supervisor:${IMAGE_TAG}

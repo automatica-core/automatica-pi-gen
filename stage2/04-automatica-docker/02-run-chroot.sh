@@ -8,6 +8,7 @@ echo "Install docker = $INSTALL_DOCKER"
 rm -f /etc/systemd/system/multi-user.target.wants/docker.service
 rm -f /etc/systemd/system/multi-user.target.wants/mariadb.service
 rm -f /etc/systemd/system/multi-user.target.wants/supervisor.service
+rm -f /etc/systemd/system/multi-user.target.wants/timescaledb.service
 
 if [ "$INSTALL_DOCKER" != "1" ]; 
 then
@@ -18,5 +19,11 @@ fi
 ln -s /lib/systemd/system/docker.service /etc/systemd/system/multi-user.target.wants/docker.service
 ln -s /lib/systemd/system/mariadb.service /etc/systemd/system/multi-user.target.wants/mariadb.service
 ln -s /lib/systemd/system/supervisor.service /etc/systemd/system/multi-user.target.wants/supervisor.service
+
+if [ "$INSTALL_DOCKER_SATELLITE" == "0" ]
+then
+    echo "installing timescaledb"
+    ln -s /lib/systemd/system/timescaledb.service /etc/systemd/system/multi-user.target.wants/timescaledb.service
+fi
 
 rm -f /etc/systemd/system/multi-user.target.wants/userconfig.service

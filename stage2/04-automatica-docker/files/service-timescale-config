@@ -1,0 +1,21 @@
+[Unit]
+Description=Automatica.TimescaleDB
+After=timescale.service
+Requires=timescale.service
+StartLimitInterval=200
+StartLimitBurst=5
+
+[Service]
+TimeoutStartSec=300
+Restart=always
+RestartSec=5s
+RestartSteps=10s
+RestartMaxDelaySec=300s
+
+ExecStartPre=-/usr/bin/docker stop timescaledb
+ExecStartPre=-/usr/bin/docker rm timescaledb
+ExecStartPre=/usr/bin/docker pull timescale/timescaledb:latest-pg15
+ExecStart=/usr/bin/docker run --rm --name timescaledb -v /var/lib/timescaledb:/var/lib/postgresql/data -e NETWORK_MODE=automatica timescale/timescaledb:latest-pg15
+
+[Install]
+WantedBy=multi-user.target

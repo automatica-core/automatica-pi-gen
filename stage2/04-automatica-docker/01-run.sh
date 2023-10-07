@@ -65,6 +65,7 @@ then
     install -v -m 644 files/supervisor-master-out.json "${ROOTFS_DIR}/var/lib/supervisor/appsettings.json"
     install -v -m 644 files/automatica-out.json "${ROOTFS_DIR}/var/lib/automatica/config/appsettings.json"
 
+    install -v -m 644 files/service-timescale-config "${ROOTFS_DIR}/lib/systemd/system/timescaledb.service"
 
 else
     echo "installing satellite system config"
