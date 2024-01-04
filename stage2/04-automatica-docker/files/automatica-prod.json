@@ -7,6 +7,15 @@
     "port": 5001,
     "cloudurl": "https://cloud.automaticacore.com",
     "log_microsoft":  true,
-    "remote_connect_url": "cloud.automaticaremote.com"
+    "remote_connect_url": "cloud.automaticaremote.com",
+    "log_level": "warning",
+    "TZ": "Europe/Vienna"
+  },
+  "db": {
+    "hyperSeriesHost": "",
+    "hyperSeriesPort": "5432",
+    "hyperSeriesUser": "postgres",
+    "hyperSeriesPassword": "postgres",
+    "hyperSeriesDatabase": "automatica"
   }
 }
