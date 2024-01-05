@@ -8,8 +8,7 @@
     "cloudurl": "https://cloud.automaticacore.com",
     "log_microsoft":  true,
     "remote_connect_url": "cloud.automaticaremote.com",
-    "log_level": "warning",
-    "TZ": "Europe/Vienna"
+    "log_level": "warning"
   },
   "db": {
     "hyperSeriesHost": "",
@@ -17,5 +16,6 @@
     "hyperSeriesUser": "postgres",
     "hyperSeriesPassword": "postgres",
     "hyperSeriesDatabase": "automatica"
-  }
+  },
+  "TZ": "Europe/Vienna"
 }
