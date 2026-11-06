@@ -1,0 +1,12 @@
+[Unit]
+Description=Automatica per-device TLS key for nginx
+After=local-fs.target
+Before=nginx.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/sbin/automatica-secrets tls
+
+[Install]
+RequiredBy=nginx.service

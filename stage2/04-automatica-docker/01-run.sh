@@ -1,7 +1,9 @@
 #!/bin/bash -e
 
 INSTALL_DOCKER=${INSTALL_DOCKER:-0}
-IMAGE_TAG=${IMAGE_TAG:-"latest-develop"}
+# "latest" is the stable (master) channel. Development images must ask for it explicitly:
+# IMAGE_TAG=latest-develop. Never let a release image follow the develop branch by default.
+IMAGE_TAG=${IMAGE_TAG:-"latest"}
 env=${USE_ENV:-"dev"}
 
 echo "Install docker = $INSTALL_DOCKER"
@@ -21,12 +23,14 @@ rm -f files/service-supervisor-config-out
 IMAGE_TAG=$IMAGE_TAG envsubst < "files/service-supervisor-config" > "files/service-supervisor-config-out"
     
 install -v -m 644 files/service-supervisor-config-out "${ROOTFS_DIR}/lib/systemd/system/supervisor.service"
-install -v -m 644 files/service-mariadb-config "${ROOTFS_DIR}/lib/systemd/system/mariadb.service"
-
 dos2unix ${ROOTFS_DIR}/lib/systemd/system/supervisor.service
-dos2unix ${ROOTFS_DIR}/lib/systemd/system/mariadb.service
 
-# install -v -m 644 files/10-usb.rules "${ROOTFS_DIR}/etc/udev/rules.d/10-usb.rules"
+# automatica-secrets.service, mariadb.service, timescaledb.service: per-device passwords from
+# /etc/automatica (generated at first boot), databases on 127.0.0.1 only, images pinned by digest.
+# The same script rewrites these units on older devices ("automatica-secrets rotate").
+bash "${ROOTFS_DIR}/usr/local/sbin/automatica-secrets" write-units "${ROOTFS_DIR}"
+
+install -v -m 644 files/10-usb.rules "${ROOTFS_DIR}/etc/udev/rules.d/10-usb.rules"
 
 pwd=$(pwd)
 cd ${ROOTFS_DIR}/etc/systemd/system/
@@ -63,9 +67,8 @@ then
     IMAGE_TAG=$IMAGE_TAG envsubst < "files/automatica-${env}.json" > "files/automatica-out.json"
 
     install -v -m 644 files/supervisor-master-out.json "${ROOTFS_DIR}/var/lib/supervisor/appsettings.json"
-    install -v -m 644 files/automatica-out.json "${ROOTFS_DIR}/var/lib/automatica/config/appsettings.json"
-
-    install -v -m 644 files/service-timescale-config "${ROOTFS_DIR}/lib/systemd/system/timescaledb.service"
+    # holds the database passwords after the first boot (automatica-secrets init)
+    install -v -m 600 files/automatica-out.json "${ROOTFS_DIR}/var/lib/automatica/config/appsettings.json"
 
 else
     echo "installing satellite system config"
@@ -87,6 +90,8 @@ else
     IMAGE_TAG=$IMAGE_TAG envsubst < "files/automatica-satellite.json" > "files/automatica-satellite-out.json"
 
     install -v -m 644 files/supervisor-satellite-out.json "${ROOTFS_DIR}/var/lib/supervisor/appsettings.json"
-    install -v -m 644 files/automatica-satellite-out.json "${ROOTFS_DIR}/var/lib/satellite/appsettings.json"
+    install -v -m 600 files/automatica-satellite-out.json "${ROOTFS_DIR}/var/lib/satellite/appsettings.json"
+    # satellites have no time series database
+    rm -f "${ROOTFS_DIR}/lib/systemd/system/timescaledb.service"
 
 fi

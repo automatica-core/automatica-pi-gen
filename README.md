@@ -3,6 +3,36 @@
 Tool used to create Raspberry Pi OS images. (Previously known as Raspbian).
 
 
+## Automatica.Core image
+
+This fork builds the Automatica.Core Raspberry Pi image (`INSTALL_DOCKER=1`, optionally
+`INSTALL_DOCKER_SATELLITE=1`). Start from `config.example`. Security defaults:
+
+* **No shared login.** `FIRST_USER_PASS` must stay unset (`build.sh` refuses it unless
+  `ALLOW_DEFAULT_PASSWORD=1`). The first-boot wizard asks for user name and password, or Raspberry
+  Pi Imager sets them (`userconf.txt`). sudo asks for the password (no NOPASSWD), and the user is
+  not in the `docker` group.
+* **SSH off** unless the image is built with `ENABLE_SSH=1 PUBKEY_ONLY_SSH=1 PUBKEY_SSH_FIRST_USER=...`.
+  Root logins are always off.
+* **Per-device secrets** (`/usr/local/sbin/automatica-secrets`): on first boot
+  `automatica-secrets.service` generates random MariaDB and Postgres passwords
+  (`/etc/automatica`, root only, mode 600) and writes them into
+  `/var/lib/automatica/config/appsettings.json`. Core connects as its own DB users (`automatica`),
+  not as root/postgres. Both databases listen on 127.0.0.1 only.
+* **TLS:** `automatica-tls.service` creates the nginx key on first boot
+  (`/etc/ssl/private/automatica.key`, mode 600). TLSv1.2 and 1.3 only.
+* MariaDB and TimescaleDB images are pinned by digest in `automatica-secrets`; the default
+  `IMAGE_TAG` is `latest` (stable). Development images set `IMAGE_TAG=latest-develop`.
+
+Devices flashed from an older image still have the published passwords. Copy
+`stage2/00-automatica-pre/files/automatica-secrets` to the device and run:
+
+```bash
+sudo bash automatica-secrets rotate        # new DB passwords, own DB users, 127.0.0.1, new TLS key
+sudo bash automatica-secrets harden-login  # no NOPASSWD sudo, no docker group, forced new password
+sudo reboot
+```
+
 ## Dependencies
 
 pi-gen runs on Debian-based operating systems. Currently it is only supported on

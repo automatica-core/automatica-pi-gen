@@ -1,1 +1,6 @@
-SUBSYSTEM=="usb-serial", ACTION=="add", CHMOD="0666"
+# Serial adapters (USB-serial, CDC-ACM) belong to group dialout, mode 0660: the default on
+# Raspberry Pi OS, stated here so no other rule widens it. Never 0666: that hands every local
+# process the building's buses. Users and containers that need them join dialout (gid 20).
+SUBSYSTEM=="tty", KERNEL=="ttyUSB[0-9]*|ttyACM[0-9]*", GROUP="dialout", MODE="0660"
+# USB HID interfaces (e.g. KNX USB interfaces) for non-root processes in group plugdev (gid 46)
+SUBSYSTEM=="hidraw", SUBSYSTEMS=="usb", GROUP="plugdev", MODE="0660"

@@ -1,6 +1,6 @@
 {
   "ConnectionStrings": {
-    "AutomaticaDatabaseMaria": "Server=localhost;User Id=root;Password=hguyFtgfR4r9R4r76;Database=automatica",
+    "AutomaticaDatabaseMaria": "Server=127.0.0.1;User Id=automatica;Password=@MARIADB_PASSWORD@;Database=automatica",
     "AutomaticaDatabaseType": "mariadb"
   },
   "server": {
@@ -13,8 +13,8 @@
   "db": {
     "hyperSeriesHost": "",
     "hyperSeriesPort": "5432",
-    "hyperSeriesUser": "postgres",
-    "hyperSeriesPassword": "postgres",
+    "hyperSeriesUser": "automatica",
+    "hyperSeriesPassword": "@POSTGRES_PASSWORD@",
     "hyperSeriesDatabase": "automatica"
   },
   "TZ": "Europe/Vienna"

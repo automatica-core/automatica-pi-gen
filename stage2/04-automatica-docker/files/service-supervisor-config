@@ -12,6 +12,9 @@ RestartSec=5s
 RestartSteps=10s
 RestartMaxDelaySec=300s
 
+# docker.sock stays: the supervisor creates, updates and removes the core / satellite containers
+# through it (RuntimeSupervisor), and passes it on to them. It is root on the host; removing it
+# needs the supervisor code change first (automatica.supervisor, H7 in the 2026-11-06 audit).
 ExecStartPre=-/usr/bin/docker stop supervisor
 ExecStartPre=-/usr/bin/docker rm supervisor
 ExecStartPre=/usr/bin/docker pull automaticacore/automatica.supervisor:${IMAGE_TAG}
