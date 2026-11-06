@@ -23,6 +23,19 @@ if [ "${PUBKEY_ONLY_SSH}" = "1" ]; then
 s/^#?[[:blank:]]*PasswordAuthentication[[:blank:]]*yes[[:blank:]]*$/PasswordAuthentication no/' "${ROOTFS_DIR}"/etc/ssh/sshd_config
 fi
 
+# Automatica: no root logins; with PUBKEY_ONLY_SSH no password or keyboard-interactive logins
+# either (the sed above only catches the default comment lines)
+install -d -m 755 "${ROOTFS_DIR}/etc/ssh/sshd_config.d"
+{
+	echo "# automatica-pi-gen"
+	echo "PermitRootLogin no"
+	if [ "${PUBKEY_ONLY_SSH}" = "1" ]; then
+		echo "PasswordAuthentication no"
+		echo "ChallengeResponseAuthentication no"  # bullseye sshd 8.4 has no KbdInteractiveAuthentication
+	fi
+} > "${ROOTFS_DIR}/etc/ssh/sshd_config.d/10-automatica.conf"
+chmod 644 "${ROOTFS_DIR}/etc/ssh/sshd_config.d/10-automatica.conf"
+
 on_chroot << EOF
 systemctl disable hwclock.sh
 systemctl disable nfs-common
@@ -57,8 +70,11 @@ for GRP in adm dialout cdrom audio users sudo video games plugdev input gpio spi
 done
 EOF
 
+# Automatica: sudo asks for the user's password. raspberrypi-sys-mods ships a NOPASSWD rule for
+# the first user; keep the file (the first-boot rename edits it) but without the rule.
 if [ -f "${ROOTFS_DIR}/etc/sudoers.d/010_pi-nopasswd" ]; then
-  sed -i "s/^pi /$FIRST_USER_NAME /" "${ROOTFS_DIR}/etc/sudoers.d/010_pi-nopasswd"
+  echo "# NOPASSWD removed by automatica-pi-gen: sudo asks for the password" > "${ROOTFS_DIR}/etc/sudoers.d/010_pi-nopasswd"
+  chmod 440 "${ROOTFS_DIR}/etc/sudoers.d/010_pi-nopasswd"
 fi
 
 on_chroot << EOF

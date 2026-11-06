@@ -26,4 +26,5 @@ then
     ln -s /lib/systemd/system/timescaledb.service /etc/systemd/system/multi-user.target.wants/timescaledb.service
 fi
 
-rm -f /etc/systemd/system/multi-user.target.wants/userconfig.service
+# The first-boot user wizard (userconfig.service) stays enabled: the image ships without a
+# password, the user picks name and password on first boot or via userconf.txt (Raspberry Pi Imager).

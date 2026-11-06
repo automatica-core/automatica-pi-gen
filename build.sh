@@ -312,6 +312,20 @@ if [[ "$DISABLE_FIRST_BOOT_USER_RENAME" == "1" ]]; then
 	echo "Be advised of the security risks linked to shipping a device with default username/password set."
 fi
 
+# Automatica: refuse images that every buyer could log in to with the same credentials.
+# ALLOW_DEFAULT_PASSWORD=1 / ALLOW_SSH_PASSWORD_AUTH=1 are for lab images only.
+if [ -n "${FIRST_USER_PASS}" ] && [ "${ALLOW_DEFAULT_PASSWORD:-0}" != "1" ]; then
+	echo "FIRST_USER_PASS is set: every flashed device would share this password."
+	echo "Leave it unset (first-boot wizard / Raspberry Pi Imager sets it), or set ALLOW_DEFAULT_PASSWORD=1 for a lab image."
+	exit 1
+fi
+
+if [ "${ENABLE_SSH}" = "1" ] && [ "${PUBKEY_ONLY_SSH}" != "1" ] && [ "${ALLOW_SSH_PASSWORD_AUTH:-0}" != "1" ]; then
+	echo "ENABLE_SSH=1 needs PUBKEY_ONLY_SSH=1 and PUBKEY_SSH_FIRST_USER (or ALLOW_SSH_PASSWORD_AUTH=1 for a lab image)."
+	echo "Without it SSH stays off; users can still enable it per device with Raspberry Pi Imager."
+	exit 1
+fi
+
 if [[ -n "${APT_PROXY}" ]] && ! curl --silent "${APT_PROXY}" >/dev/null ; then
 	echo "Could not reach APT_PROXY server: ${APT_PROXY}"
 	exit 1

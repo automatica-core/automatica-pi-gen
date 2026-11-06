@@ -29,4 +29,5 @@ apt-get update
 
 apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-usermod -aG docker automatica
+# Automatica: the login user is NOT added to the docker group. Docker access is root without a
+# password; the services run as root through systemd and admins use sudo.

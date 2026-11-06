@@ -1,0 +1,15 @@
+# Copy to "config" (git-ignored) and adjust. See README.md, section "Automatica.Core image".
+IMG_NAME=Automatica.Core.Raspbian
+FIRST_USER_NAME=automatica
+# No FIRST_USER_PASS: every flashed device would share it. The user sets name and password on the
+# first boot (console wizard) or with Raspberry Pi Imager (userconf.txt).
+# SSH is off. Users enable it per device with Raspberry Pi Imager. For an image with SSH on,
+# use keys only:
+# ENABLE_SSH=1
+# PUBKEY_ONLY_SSH=1
+# PUBKEY_SSH_FIRST_USER="ssh-ed25519 AAAA... you@example"
+ENABLE_SSH=0
+INSTALL_DOCKER=1
+# Stable channel by default. Development images: IMAGE_TAG=latest-develop
+# IMAGE_TAG=latest
+# USE_ENV=prod
