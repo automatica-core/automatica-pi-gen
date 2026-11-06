@@ -21,6 +21,9 @@ This fork builds the Automatica.Core Raspberry Pi image (`INSTALL_DOCKER=1`, opt
   not as root/postgres. Both databases listen on 127.0.0.1 only.
 * **TLS:** `automatica-tls.service` creates the nginx key on first boot
   (`/etc/ssl/private/automatica.key`, mode 600). TLSv1.2 and 1.3 only.
+* **Satellite key:** satellite images generate their own MQTT client id (the hostname) and a
+  random client key on first boot instead of the shared `rm1/rm1`. Show them with
+  `sudo automatica-secrets satellite-key` and enter them for the satellite on the core.
 * MariaDB and TimescaleDB images are pinned by digest in `automatica-secrets`; the default
   `IMAGE_TAG` is `latest` (stable). Development images set `IMAGE_TAG=latest-develop`.
 
